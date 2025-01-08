@@ -13,9 +13,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="p-3 bg-gray-100 h-screen flex flex-col">
+        <div className="p-2 bg-gray-100 flex flex-col h-dvh">
             <PreviousIcon />
-            <main>
+            <main className="flex-1">
                 {children}
             </main>
         </div>
