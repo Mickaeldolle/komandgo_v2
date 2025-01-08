@@ -2,20 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
+:root {
+
+  --primary: 227 83 64;
+  --secondary: #ffffff;
+  --accent: #ff00ff;
+
+  /* Button  */
+  --button-color: 227 83 64;
+  --button-hover-color: 227 83 64;
+
+  /* Themes */
   --background: #ffffff;
   --foreground: #171717;
 }
 
+@layer utilities {
+  .btn-custom {
+    background-color: red;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
+    --primary: 227 83 64;
+    --secondary: #ffffff;
+    --accent: #ff00ff;
+
+    /* Button  */
+    --button-hover-color: 227 83 64;
+
+    /* Themes */
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-} */
+}
