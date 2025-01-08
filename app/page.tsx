@@ -20,7 +20,7 @@ export default async function Home() {
   })
 
   return (
-    <div className="h-screen bg-gray-100 flex flex-col justify-between font-roboto">
+    <div className="h-dvh bg-gray-100 flex flex-col justify-between font-roboto">
       {/* Logo / slogan / image */}
       <div className="h-1/2 grow py-5 bg-hero-home bg-no-repeat bg-cover bg-center flex flex-col justify-center p-5">
         <div className="backdrop-blur-sm text-center text-xl font-medium p-5 rounded-xl">
@@ -32,7 +32,7 @@ export default async function Home() {
       <div className="grid grid-cols-2 gap-x-2 gap-y-3 border p-2 min-h-[300px]">
         {filteredButtonGroup.map((button) => (
           <Link
-            className="hover:outline hover:outline-1 hover:outline-primary flex nowrap p-5 border shadow-inner rounded-xl  transition duration-500 uppercase"
+            className="hover:outline hover:outline-1 hover:outline-primary flex bg-white nowrap p-5 border shadow-inner rounded-xl  transition duration-500 uppercase"
             key={button.label}
             href={button.href}
           >
