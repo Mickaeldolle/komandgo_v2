@@ -13,8 +13,8 @@
   --button-hover-color: 227 83 64;
 
   /* Themes */
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f5f5;
+  --foreground: #ffffff;
 }
 
 @layer utilities {
@@ -23,21 +23,20 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --primary: 227 83 64;
     --secondary: #ffffff;
     --accent: #ff00ff;
 
-    /* Button  */
+    Button 
     --button-hover-color: 227 83 64;
 
-    /* Themes */
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    Themes
+    --background: #000000;
+    --foreground: #424242;
   }
-}
-
+} */
 
 body {
   color: var(--foreground);

@@ -1,4 +1,3 @@
-import { plugin } from "postcss";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -22,7 +21,7 @@ export default {
         roboto: "var(--font-roboto)",
         inter: "var(--font-inter)",
         pacifico: "var(--font-pacifico)",
-        backOpsOne: "var(--font-black-ops-one)",
+        blackOpsOne: "var(--font-black-ops-one)",
       },
       backgroundImage: {
         'hero-home': "url('https://img.freepik.com/photos-premium/plat-restauration-rapide-fond-jaune-ensemble-restauration-rapide-burger-viande-poulet-frit-frites-restauration-rapide-emporter-ai-generative_410516-1055.jpg')",
@@ -30,17 +29,5 @@ export default {
     },
   },
   plugins: [
-    // plugin(function ({ addUtilities }) {
-    //   addUtilities({
-    //     ".scrollbar-hide": {
-    //       "-ms-overflow-style": "none",
-    //       "scrollbar-width": "none",
-    //     },
-    //     ".scrollbar-hide::-webkit-scrollbar": {
-    //       display: "none",
-    //     },
-
-    //   })
-    // }),
   ],
 } satisfies Config;

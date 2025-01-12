@@ -6,6 +6,6 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 export default function PreviousIcon() {
     return (
-        <UnstyledButton className="" onClick={() => history.back()}><IconArrowLeft size={35} stroke={1.5} /></UnstyledButton>
+        <UnstyledButton className="" onClick={() => history.back()}><IconArrowLeft size={40} stroke={1.5} /></UnstyledButton>
     );
 }   

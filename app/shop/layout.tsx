@@ -13,7 +13,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="p-2 bg-gray-100 flex flex-col h-dvh">
+        <div className="bg-background p-2 flex flex-col min-h-dvh">
             <PreviousIcon />
             <main className="flex-1">
                 {children}
