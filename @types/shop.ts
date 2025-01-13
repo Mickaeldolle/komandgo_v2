@@ -13,12 +13,13 @@ export type Shop = {
     price_range: "$" | "$$" | "$$$" | "$$$$"; // Indique la gamme de prix
     features: string[]; // Liste de fonctionnalités comme "Terrasse", "Livraison", etc.
     hours: {
-        monday?: string; // Les horaires d'ouverture par jour (facultatif si fermé)
-        tuesday?: string;
-        wednesday?: string;
-        thursday?: string;
-        friday?: string;
-        saturday?: string;
-        sunday?: string;
-    };
+        id: number;
+        day: number;
+        open: string; // Peut être typé comme `Date` si vous gérez les dates sous forme d'objet Date
+        close: string;   // Idem pour `Date`
+        delivery: boolean;
+        clickAndCollect: boolean;
+        onSite: boolean;
+        shopUuid: string;
+    }[];
 };

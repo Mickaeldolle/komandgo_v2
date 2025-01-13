@@ -1,7 +1,7 @@
 "use client";
 
 import { IconAdjustmentsAlt, IconMapPin, IconSearch } from "@tabler/icons-react";
-import { Button, Checkbox, Text, Group, Modal, MultiSelect, Slider, TextInput, Divider } from "@mantine/core";
+import { Button, Checkbox, Text, Modal, MultiSelect, Slider, TextInput, Divider } from "@mantine/core";
 import { useEffect, useState } from "react";
 import StarButton from "../components/ui/StarButton/StarButton";
 import Link from "next/link";
@@ -315,7 +315,6 @@ export default function Shop() {
             < div className="bg-background rounded-xl bg-background" >
                 {showSearchShopModal && (
                     <Modal
-                        centered
                         withCloseButton={false}
                         overlayProps={{
                             backgroundOpacity: 0.8,
@@ -329,13 +328,12 @@ export default function Shop() {
                                 <TextInput
                                     autoFocus
                                     size="md"
-                                    // label="Ou êtes vous ?"
                                     aria-label="Ou êtes vous ?"
                                     classNames={{
                                         root: 'flex-1',
                                     }}
                                 />
-                                <Button onClick={() => setToggleFilter((prev) => !prev)} variant="outline" className="mt-2 ml-auto" type="button"><IconAdjustmentsAlt className="mr-2" />Filtres</Button>
+                                <Button p={8} onClick={() => setToggleFilter((prev) => !prev)} variant="outline" className="mt-2 ml-auto" type="button"><IconAdjustmentsAlt /></Button>
                                 {toggleFilter && (
 
                                     <div className="rounded-xl border border-primary my-2 p-5">
@@ -357,15 +355,14 @@ export default function Shop() {
                                         <MultiSelect
                                             mb={5}
                                             label="Cuisine"
-                                            aria-label="Type"
-                                            placeholder="Type"
+                                            aria-label="Type de cuisine"
                                             data={cuisineValues}></MultiSelect>
-                                        <Checkbox.Group mb={5} label="Features" defaultValue={['buffet']}>
-                                            <Group>
+                                        <Checkbox.Group className="" label="Services" defaultValue={['buffet']}>
+                                            <div className="grid grid-cols-2 gap-y-3">
                                                 {featuresValues.map((feature) => (
                                                     <Checkbox key={feature.value} value={feature.value} label={feature.label} />
                                                 ))}
-                                            </Group>
+                                            </div>
                                         </Checkbox.Group>
                                         {/* </Fieldset> */}
                                     </div>
@@ -376,31 +373,33 @@ export default function Shop() {
 
 
                     </Modal>
-                )}
+                )
+                }
             </div >
 
             {/* Liste des magasins */}
 
-            <div className="flex flex-col">
+            < div className="flex flex-col" >
                 <Button className="ml-auto" onClick={() => setShowSearchShopModal(true)} radius={"xl"} size="sm"
                     type="button">
                     <IconSearch />
                 </Button>
                 <Divider my="sm" />
-                {shops.map((shop: Shop) => (
-                    <div key={shop.id} className="flex items-center border-b border-primary/20">
-                        <Link href={`/shop/${shop.id}`} className="grow items-center border-b border-primary/20">
-                            <div className="p-2 ">
-                                <h2 className="text-lg font-bold">{shop.name}</h2>
-                                <p className="text-sm text-gray-600">{shop.cuisine}</p>
-                                <p className="text-sm">{shop.address.street}, {shop.address.city}</p>
-                            </div>
-                        </Link>
-                        <StarButton />
-                    </div>
-
-                ))}
-            </div>
+                {
+                    shops.map((shop: Shop) => (
+                        <div key={shop.id} className="flex items-center border-b border-primary/20">
+                            <Link href={`/shop/${shop.id}`} className="grow items-center">
+                                <div className="p-2 ">
+                                    <h2 className="text-lg font-bold">{shop.name}</h2>
+                                    <p className="text-sm text-gray-600">{shop.cuisine}</p>
+                                    <p className="text-sm">{shop.address.street}, {shop.address.city}</p>
+                                </div>
+                            </Link>
+                            <StarButton />
+                        </div>
+                    ))
+                }
+            </div >
         </div >
 
     )

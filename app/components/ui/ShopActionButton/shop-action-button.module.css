@@ -1,0 +1,39 @@
+.container {
+    position: relative;
+    width: fit-content;
+}
+
+.mainButton {
+    transition: transform 0.2s ease;
+}
+
+.mainButton.open {
+    transform: rotate(215deg);
+    filter: opacity(0.5);
+}
+
+.secondaryButtonsContainer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    /* Permet les clics à travers le conteneur */
+}
+
+.secondaryButton {
+    position: absolute;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+    /* Réactive les clics sur les boutons */
+}
+
+.secondaryButton:active {
+    filter: brightness(1.1);
+}
+
+/* Animation pour le retour à la position initiale */
+.secondaryButton:not(.open) {
+    transition: all 0.3s ease
+}

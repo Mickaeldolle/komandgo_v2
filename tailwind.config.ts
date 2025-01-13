@@ -16,6 +16,7 @@ export default {
         accent: "var(--accent)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        contrast: "var(--contrast)",
       },
       fontFamily: {
         roboto: "var(--font-roboto)",

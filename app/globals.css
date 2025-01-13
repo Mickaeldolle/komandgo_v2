@@ -8,6 +8,9 @@
   --secondary: #ffffff;
   --accent: #ff00ff;
 
+  /* Elements colors */
+  --contrast: #000000;
+
   /* Button  */
   --button-color: 227 83 64;
   --button-hover-color: 227 83 64;
