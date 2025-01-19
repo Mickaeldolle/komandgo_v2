@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import PreviousIcon from "../components/ui/PreviousIcon";
+import { Suspense } from "react";
+import MobileNavBar from "../components/MobileNavBar/MobileNavBar";
 // import { CustomerStoreProvider } from '@/providers/customer-store-provider'
 
 
@@ -14,13 +16,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="bg-background p-2 flex flex-col min-h-dvh">
-            {/* <CustomerStoreProvider > */}
-            <PreviousIcon />
-            <main className="flex-1">
-                {children}
-            </main>
-            {/* </CustomerStoreProvider> */}
+        <div className="min-h-dvh">
+            <MobileNavBar />
+            <div className="bg-background p-2 flex flex-col ">
+                {/* <CustomerStoreProvider > */}
+                <main className="flex-1">
+                    {children}
+                </main>
+                {/* </CustomerStoreProvider> */}
+            </div>
         </div>
 
     );

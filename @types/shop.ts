@@ -1,11 +1,13 @@
 export type Shop = {
     id: number;
     name: string;
-    cuisine: string;
+    open: boolean;
+    cuisine: string[];
     address: {
         street: string;
         city: string;
         postcode: string;
+        label: string;
     };
     phone: string;
     website: string;

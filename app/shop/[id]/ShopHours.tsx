@@ -27,7 +27,7 @@ export default function ShopHours({ shop }: { shop: Shop }) {
     return (
         <>
             <UnstyledButton className="w-full" onClick={toggle}>
-                <p className="bg-primary flex gap-5 font-roboto p-2 items-center text-white font-medium">
+                <p className="bg-primary flex gap-5 p-2 items-center text-white font-medium">
                     <IconClockCheck color="white" />
                     Horaires
                     <IconSelector className="ml-auto" color="white" />

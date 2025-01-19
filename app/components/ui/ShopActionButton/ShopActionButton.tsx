@@ -72,7 +72,7 @@ const ShopActionButton = ({ shop }: { shop: Shop }) => {
             {/* Bouton principal */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`bg-primary text-white p-2 rounded-full shadow-xl ${styles.mainButton} ${isOpen ? styles.open : ''}`}
+                className={`bg-primary/60 text-white p-2 rounded-full shadow-xl ${styles.mainButton} ${isOpen ? styles.open : ''}`}
             >
                 <IconArrowRight size={52} />
             </button>
