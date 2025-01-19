@@ -1,10 +1,11 @@
 import { Shop } from "@/@types/shop";
-import Image from "next/image";
-import image from '@/public/img-1.jpg';
 import { IconCheck } from "@tabler/icons-react";
 import { Divider } from "@mantine/core";
 import ShopHours from "./ShopHours";
 import ShopActionButton from "@/app/components/ui/ShopActionButton/ShopActionButton";
+import StarButton from "@/app/components/ui/StarButton/StarButton";
+import Image from "next/image";
+import image from '@/public/img-1.jpg';
 
 export default function ShopPage() {
 
@@ -41,10 +42,15 @@ export default function ShopPage() {
 
     return (
         <div className="relative">
-            <h1 className="text-2xl font-bold text-center text-primary font-blackOpsOne">{shop.name}</h1>
+            <section>
+                <div className="flex justify-center gap-5 items-center">
+                    <h1 className="text-2xl font-bold text-center text-primary font-blackOpsOne">{shop.name}</h1>
+                    <StarButton />
+                </div>
+                <Divider className="my-3" />
 
-            <Image className="rounded-xl shadow-xl h-[100px] object-cover mb-3" src={image} alt={shop.name} />
-
+                <Image className="rounded-xl shadow-xl h-[100px] object-cover mb-3" src={image} alt={shop.name} />
+            </section>
             <section className="border border-primary rounded-xl overflow-hidden mb-3">
                 <ShopHours shop={shop} />
             </section>
@@ -57,7 +63,7 @@ export default function ShopPage() {
                 </ul>
             </section>
             <div className="fixed bottom-10 right-10">
-                <ShopActionButton />
+                <ShopActionButton shop={shop} />
             </div>
         </div>
     );

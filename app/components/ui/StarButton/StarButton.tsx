@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import './star-styles.css';
 import { IconStar } from '@tabler/icons-react';

@@ -4,7 +4,7 @@
 }
 
 .mainButton {
-    transition: transform 0.2s ease;
+    transition: transform 0.4s ease;
 }
 
 .mainButton.open {
@@ -30,7 +30,7 @@
 }
 
 .secondaryButton:active {
-    filter: brightness(1.1);
+    filter: brightness(2);
 }
 
 /* Animation pour le retour à la position initiale */

@@ -7,7 +7,7 @@ import { Shop } from "@/@types/shop";
 
 
 export default function ShopHours({ shop }: { shop: Shop }) {
-    const [opened, { toggle }] = useDisclosure(false);
+    const [opened, { toggle }] = useDisclosure(true);
     const daysOfWeek = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
     // Formatter pour afficher les heures en format lisible

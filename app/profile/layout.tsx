@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import PreviousIcon from "../components/ui/PreviousIcon";
-// import { CustomerStoreProvider } from '@/providers/customer-store-provider'
 
 
 export const metadata: Metadata = {
     title: 'KomandGO app new food ordering',
-    description: 'Page de recherche de lieu',
+    description: 'Page de profil',
 };
 
 export default function RootLayout({
@@ -14,13 +13,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="bg-background p-2 flex flex-col min-h-dvh">
-            {/* <CustomerStoreProvider > */}
+        <div className="bg-background p-2 flex flex-col h-dvh">
             <PreviousIcon />
             <main className="flex-1">
                 {children}
             </main>
-            {/* </CustomerStoreProvider> */}
         </div>
 
     );

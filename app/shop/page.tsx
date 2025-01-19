@@ -5,26 +5,7 @@ import { Button, Checkbox, Text, Modal, MultiSelect, Slider, TextInput, Divider 
 import { useEffect, useState } from "react";
 import StarButton from "../components/ui/StarButton/StarButton";
 import Link from "next/link";
-
-// Type du Shop
-type Shop = {
-    id: number;
-    name: string;
-    cuisine: string;
-    address: {
-        street: string;
-        city: string;
-        postcode: string;
-    };
-    phone: string;
-    website: string;
-    rating: number;
-    price_range: "$" | "$$" | "$$$" | "$$$$";
-    features: string[];
-    hours: {
-        [key: string]: string | undefined; // Horaires par jour ou "Fermé"
-    };
-};
+import type { Shop } from "@/@types/shop";
 
 // Liste des shops
 const shops: Shop[] = [
@@ -42,15 +23,19 @@ const shops: Shop[] = [
         rating: 4.7,
         price_range: "$$$",
         features: ["Terrasse", "Réservations", "Wi-Fi gratuit"],
-        hours: {
-            monday: "12:00-15:00, 19:00-22:00",
-            tuesday: "12:00-15:00, 19:00-22:00",
-            wednesday: "12:00-15:00, 19:00-22:00",
-            thursday: "12:00-15:00, 19:00-22:00",
-            friday: "12:00-15:00, 19:00-23:00",
-            saturday: "12:00-15:00, 19:00-23:00",
-            sunday: "12:00-15:00"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 2,
@@ -66,15 +51,19 @@ const shops: Shop[] = [
         rating: 4.5,
         price_range: "$$",
         features: ["Livraison", "Menu enfant", "Terrasse"],
-        hours: {
-            monday: "11:30-14:30, 18:30-22:00",
-            tuesday: "11:30-14:30, 18:30-22:00",
-            wednesday: "11:30-14:30, 18:30-22:00",
-            thursday: "11:30-14:30, 18:30-22:00",
-            friday: "11:30-14:30, 18:30-23:00",
-            saturday: "11:30-15:00, 18:30-23:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 3,
@@ -90,15 +79,19 @@ const shops: Shop[] = [
         rating: 4.6,
         price_range: "$",
         features: ["Végétarien", "Sans gluten", "Buffet à volonté"],
-        hours: {
-            monday: "12:00-14:30, 18:30-21:30",
-            tuesday: "12:00-14:30, 18:30-21:30",
-            wednesday: "12:00-14:30, 18:30-21:30",
-            thursday: "12:00-14:30, 18:30-21:30",
-            friday: "12:00-14:30, 18:30-22:00",
-            saturday: "12:00-15:00, 18:30-22:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 4,
@@ -114,15 +107,19 @@ const shops: Shop[] = [
         rating: 4.8,
         price_range: "$$$",
         features: ["Fondues", "Produits locaux", "Cadre chaleureux"],
-        hours: {
-            monday: "Fermé",
-            tuesday: "12:00-14:30, 19:00-22:00",
-            wednesday: "12:00-14:30, 19:00-22:00",
-            thursday: "12:00-14:30, 19:00-22:00",
-            friday: "12:00-14:30, 19:00-23:00",
-            saturday: "12:00-15:00, 19:00-23:00",
-            sunday: "12:00-15:00"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 5,
@@ -138,15 +135,19 @@ const shops: Shop[] = [
         rating: 4.3,
         price_range: "$",
         features: ["Vente à emporter", "Spécialités épicées", "Menu végétalien"],
-        hours: {
-            monday: "11:30-14:30, 18:30-22:00",
-            tuesday: "11:30-14:30, 18:30-22:00",
-            wednesday: "11:30-14:30, 18:30-22:00",
-            thursday: "11:30-14:30, 18:30-22:00",
-            friday: "11:30-14:30, 18:30-23:00",
-            saturday: "11:30-15:00, 18:30-23:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 6,
@@ -162,15 +163,19 @@ const shops: Shop[] = [
         rating: 4.4,
         price_range: "$$",
         features: ["Burgers artisanaux", "Terrasse", "Menu enfant"],
-        hours: {
-            monday: "12:00-14:30, 18:30-22:00",
-            tuesday: "12:00-14:30, 18:30-22:00",
-            wednesday: "12:00-14:30, 18:30-22:00",
-            thursday: "12:00-14:30, 18:30-22:00",
-            friday: "12:00-14:30, 18:30-23:00",
-            saturday: "12:00-15:00, 18:30-23:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 7,
@@ -186,15 +191,19 @@ const shops: Shop[] = [
         rating: 4.2,
         price_range: "$",
         features: ["À volonté", "Plats épicés", "Livraison"],
-        hours: {
-            monday: "12:00-14:30, 18:30-21:30",
-            tuesday: "12:00-14:30, 18:30-21:30",
-            wednesday: "12:00-14:30, 18:30-21:30",
-            thursday: "12:00-14:30, 18:30-21:30",
-            friday: "12:00-14:30, 18:30-22:00",
-            saturday: "12:00-15:00, 18:30-22:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 8,
@@ -210,15 +219,19 @@ const shops: Shop[] = [
         rating: 4.6,
         price_range: "$$$",
         features: ["Sushis frais", "Menu dégustation", "Ambiance zen"],
-        hours: {
-            monday: "Fermé",
-            tuesday: "12:00-14:30, 19:00-22:30",
-            wednesday: "12:00-14:30, 19:00-22:30",
-            thursday: "12:00-14:30, 19:00-22:30",
-            friday: "12:00-14:30, 19:00-23:00",
-            saturday: "12:00-15:00, 19:00-23:00",
-            sunday: "12:00-15:00, 19:00-22:00"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 9,
@@ -234,15 +247,19 @@ const shops: Shop[] = [
         rating: 4.3,
         price_range: "$$$",
         features: ["Grillades", "Viandes locales", "Vins français"],
-        hours: {
-            monday: "12:00-14:30, 18:30-21:30",
-            tuesday: "12:00-14:30, 18:30-21:30",
-            wednesday: "12:00-14:30, 18:30-21:30",
-            thursday: "12:00-14:30, 18:30-21:30",
-            friday: "12:00-14:30, 18:30-22:00",
-            saturday: "12:00-15:00, 18:30-22:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     },
     {
         id: 10,
@@ -258,15 +275,19 @@ const shops: Shop[] = [
         rating: 4.9,
         price_range: "$$$",
         features: ["100% bio", "Sans gluten", "Desserts gourmands"],
-        hours: {
-            monday: "12:00-15:00, 18:30-21:30",
-            tuesday: "12:00-15:00, 18:30-21:30",
-            wednesday: "12:00-15:00, 18:30-21:30",
-            thursday: "12:00-15:00, 18:30-21:30",
-            friday: "12:00-15:00, 18:30-22:00",
-            saturday: "12:00-15:00, 18:30-22:00",
-            sunday: "Fermé"
-        }
+        hours: [
+            { id: 17, day: 2, open: "2024-12-23 10:00:37.029+00", close: "2024-12-23 13:00:37.029+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 18, day: 2, open: "2024-12-23 16:30:05.996+00", close: "2024-12-23 21:00:05.996+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 19, day: 3, open: "2024-12-23 10:30:19.988+00", close: "2024-12-23 13:00:19.988+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 20, day: 3, open: "2024-12-23 16:30:28.138+00", close: "2024-12-23 21:00:28.138+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 21, day: 4, open: "2024-12-23 10:30:43.257+00", close: "2024-12-23 13:00:43.257+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 22, day: 4, open: "2024-12-23 16:30:49.35+00", close: "2024-12-23 21:00:49.35+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 23, day: 5, open: "2024-12-23 10:30:59.757+00", close: "2024-12-23 13:00:59.757+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 24, day: 5, open: "2024-12-23 16:30:39.513+00", close: "2024-12-23 21:30:39.513+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 25, day: 6, open: "2024-12-23 10:30:55.252+00", close: "2024-12-23 13:00:55.252+00", delivery: false, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 26, day: 6, open: "2024-12-23 16:30:09.001+00", close: "2024-12-23 21:30:09.001+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" },
+            { id: 27, day: 0, open: "2024-12-23 16:30:57.215+00", close: "2024-12-23 21:00:57.215+00", delivery: true, clickAndCollect: true, onSite: false, shopUuid: "1f6268f3-44f7-47fe-8c6e-f674f1fdc865" }
+        ]
     }
 ];
 
@@ -275,7 +296,7 @@ const shops: Shop[] = [
 export default function Shop() {
 
     const [showSearchShopModal, setShowSearchShopModal] = useState(false);
-    const [toggleFilter, setToggleFilter] = useState(false);
+    const [toggleFilter, setToggleFilter] = useState(true);
     const distanceValues = [
         { value: 5, label: '5 km' },
         { value: 15, label: '15 km' },
@@ -309,8 +330,8 @@ export default function Shop() {
     }, [])
 
     return (
-        <div className="h-full p-3">
-            {/* Section principale */}
+        <div className="h-full">
+
 
             < div className="bg-background rounded-xl bg-background" >
                 {showSearchShopModal && (

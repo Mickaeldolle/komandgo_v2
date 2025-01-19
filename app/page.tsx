@@ -32,7 +32,7 @@ export default async function Home() {
       <div className="grid grid-cols-2 gap-x-2 gap-y-3 p-2 grow">
         {filteredButtonGroup.map((button) => (
           <Link
-            className=" flex flex-col justify-between bg-foreground nowrap p-5 border shadow-inner rounded-xl  transition duration-500 uppercase hover:outline hover:outline-1 hover:outline-primary"
+            className="active:scale-95 flex flex-col justify-between bg-foreground nowrap p-5 border shadow-inner rounded-xl transition ease uppercase hover:outline hover:outline-1 hover:outline-primary"
             key={button.label}
             href={button.href}
           >
