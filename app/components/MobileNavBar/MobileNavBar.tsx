@@ -1,6 +1,6 @@
 'use client'
 
-import { ActionIcon, Indicator, TextInput, UnstyledButton } from "@mantine/core";
+import { ActionIcon, Indicator, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconArrowLeft, IconBell, IconSearch, IconUser } from "@tabler/icons-react";
 import classes from './mobile-nav-bar.module.css'
