@@ -11,11 +11,6 @@ import shops from "@/db/shops";
 import { useRouter } from "next/router";
 
 
-type Props = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-}
-
 export default async function ShopPage() {
 
     const router = useRouter()
