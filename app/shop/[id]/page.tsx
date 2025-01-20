@@ -1,5 +1,5 @@
 import { Shop } from "@/@types/shop";
-import { IconCheck, IconMapPin } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
 import { Divider } from "@mantine/core";
 import ShopHours from "./ShopHours";
 import ShopActionButton from "@/app/components/ui/ShopActionButton/ShopActionButton";

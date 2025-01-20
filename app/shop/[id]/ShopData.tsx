@@ -1,7 +1,6 @@
-import { IconBrandWebflow, IconClockCheck, IconDotsCircleHorizontal, IconMapPin, IconPhone, IconSelector, IconToolsKitchen2, IconWorldWww } from "@tabler/icons-react";
+import { IconDotsCircleHorizontal, IconMapPin, IconPhone, IconToolsKitchen2, IconWorldWww } from "@tabler/icons-react";
 import { Shop } from "@/@types/shop";
 import Link from "next/link";
-import { Span } from "next/dist/trace";
 
 
 export default function ShopData({ shop }: { shop: Shop }) {
