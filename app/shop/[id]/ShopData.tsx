@@ -4,9 +4,6 @@ import Link from "next/link";
 
 
 export default function ShopData({ shop }: { shop: Shop }) {
-
-    console.log(shop)
-
     return (
         <>
             <div className="w-full font-roboto">

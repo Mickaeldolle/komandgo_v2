@@ -8,14 +8,15 @@ import Image from "next/image";
 import image from '@/public/img-1.jpg';
 import ShopData from "./ShopData";
 import shops from "@/db/shops";
-import { useRouter } from "next/router";
 
 
-export default async function ShopPage() {
+export default async function ShopPage({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}) {
 
-    const router = useRouter()
-    const id = router.query.slug
-
+    const { id } = await params;
     const shop: Shop | undefined = shops.find(shop => shop.id.toString() === id)
 
     return (
