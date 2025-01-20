@@ -8,6 +8,7 @@ import Image from "next/image";
 import image from '@/public/img-1.jpg';
 import ShopData from "./ShopData";
 import shops from "@/db/shops";
+import { useRouter } from "next/router";
 
 
 type Props = {
@@ -15,8 +16,11 @@ type Props = {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function ShopPage({ params }: Props) {
-    const { id } = params
+export default async function ShopPage() {
+
+    const router = useRouter()
+    const id = router.query.slug
+
     const shop: Shop | undefined = shops.find(shop => shop.id.toString() === id)
 
     return (
