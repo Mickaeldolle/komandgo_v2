@@ -9,7 +9,13 @@ import image from '@/public/img-1.jpg';
 import ShopData from "./ShopData";
 import shops from "@/db/shops";
 
-export default function ShopPage({ params }: { params: { id: string } }) {
+
+type Props = {
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default async function ShopPage({ params }: Props) {
     const { id } = params
     const shop: Shop | undefined = shops.find(shop => shop.id.toString() === id)
 
