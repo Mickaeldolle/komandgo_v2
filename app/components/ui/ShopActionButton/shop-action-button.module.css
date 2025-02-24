@@ -10,6 +10,7 @@
 .mainButton.open {
     transform: rotate(215deg);
     filter: opacity(0.5);
+
 }
 
 .secondaryButtonsContainer {
@@ -24,9 +25,10 @@
     position: absolute;
     padding: 0.75rem;
     border-radius: 9999px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    /* border: 1px solid #ffffff; */
+    box-shadow: 0 0px 15px 0px rgba(254, 254, 254);
     pointer-events: auto;
-    /* Réactive les clics sur les boutons */
+
 }
 
 .secondaryButton:active {

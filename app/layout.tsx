@@ -69,7 +69,6 @@ export default function RootLayout({
         className={`${roboto.variable} ${inter.variable} ${pacifico.variable} ${backOpsOne.variable} antialiased `}
       >
         <ErrorBoundary errorComponent={Error}>
-
           <CustomerStoreProvider>
             <MantineProvider theme={theme}>
               {children}

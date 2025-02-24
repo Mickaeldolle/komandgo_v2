@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PreviousIcon from "../components/ui/PreviousIcon";
+import MobileNavBar from "../components/MobileNavBar/MobileNavBar";
 
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
     return (
         <div className="bg-background p-2 flex flex-col h-dvh">
-            <PreviousIcon />
+            <MobileNavBar />
             <main className="flex-1">
                 {children}
             </main>
