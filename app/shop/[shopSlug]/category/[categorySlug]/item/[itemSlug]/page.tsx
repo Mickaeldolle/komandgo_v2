@@ -1,15 +1,17 @@
-import { Button, Checkbox, CheckIcon, Divider, Radio } from "@mantine/core";
+import { CheckIcon, Radio } from "@mantine/core";
 import Image from "next/image";
 
-export default async function ItemBoard({
-    params,
-}: {
-    params: Promise<{ shopSlug: string, categorySlug: string, itemSlug: string }>
-}) {
+export default async function ItemBoard(
+    //     {
+    //     params,
+    // }: {
+    //     params: Promise<{ shopSlug: string, categorySlug: string, itemSlug: string }>
+    // }
+) {
 
 
-    const { shopSlug, categorySlug, itemSlug } = await params;
-    const itemId = Number(itemSlug.split("-")[0]);
+    // const { itemSlug } = await params;
+    // const itemId = Number(itemSlug.split("-")[0]);
     const item = {
         id: 1, name: 'Montagnarde',
         slug: 'montagnarde',
