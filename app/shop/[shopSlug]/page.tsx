@@ -13,11 +13,12 @@ import shops from "@/db/shops";
 export default async function ShopPage({
     params,
 }: {
-    params: Promise<{ id: string }>
+    params: Promise<{ shopSlug: string }>
 }) {
 
-    const { id } = await params;
-    const shop: Shop | undefined = shops.find(shop => shop.id.toString() === id)
+    const { shopSlug } = await params;
+    const shopId = Number(shopSlug.split("-")[0])
+    const shop: Shop | undefined = shops.find(shop => shop.id === shopId)
 
     return (
         <div className="relative font-roboto">
@@ -29,7 +30,7 @@ export default async function ShopPage({
                             <StarButton />
                         </div>
                         <Divider className="my-3" />
-
+                        {/* Remplacer le "image" par l'url de l'image du shop */}
                         <Image className="rounded-xl shadow-xl h-[100px] object-cover mb-3" src={image} alt={shop.name} />
                     </section>
                     <section className="border border-primary rounded-xl overflow-hidden mb-3">

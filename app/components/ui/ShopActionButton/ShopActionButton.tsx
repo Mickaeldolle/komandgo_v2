@@ -7,11 +7,12 @@ import { Dialog, Divider } from '@mantine/core';
 import Link from 'next/link';
 import { Shop } from '@/@types/shop';
 
+
 // Configuration des boutons secondaires
 const secondaryButtons = [
     { id: 1, icon: IconTruckDelivery, color: 'bg-primary', label: 'Livraison', link: 'delivery' },
-    { id: 2, icon: IconPaperBag, color: 'bg-primary', label: 'Click & Collect', link: 'clickAndCollect' },
-    { id: 3, icon: IconToolsKitchen2, color: 'bg-primary', label: 'Sur place', link: 'onSite' },
+    { id: 2, icon: IconPaperBag, color: 'bg-primary', label: 'Click & Collect', link: 'click_and_collect' },
+    { id: 3, icon: IconToolsKitchen2, color: 'bg-primary', label: 'Sur place', link: 'table_service' },
     { id: 4, icon: IconListDetails, color: 'bg-primary', label: 'Découvrir', link: 'list' },
     // { id: 5, icon: IconShare, color: 'bg-purple-500', label: 'Partager' },
     // Ajoutez ou retirez des boutons ici
@@ -40,7 +41,9 @@ const ShopActionButton = ({ shop }: { shop: Shop }) => {
         return { x, y };
     };
 
-
+    function generateShopSlug(shop: Shop) {
+        return `${shop.id}-${shop.slug}`;
+    }
 
     return (
         <div className={`${styles.container} `}>
@@ -83,7 +86,7 @@ const ShopActionButton = ({ shop }: { shop: Shop }) => {
                     const { x, y } = getButtonPosition(index, secondaryButtons.length);
                     return (
                         <Link
-                            href={`/shop/${shop.id}/menu/?mode=${button.link}`}
+                            href={`/shop/${generateShopSlug(shop)}/category/?mode=${button.link}`}
                             key={button.id}
                             className={`${styles.secondaryButton} ${button.color} text-white`}
                             onClick={() => setIsOpen(false)}
@@ -94,6 +97,7 @@ const ShopActionButton = ({ shop }: { shop: Shop }) => {
                             }}
                             title={button.label}
                         >
+
                             <button.icon aria-label={button.label} size={28} stroke={1.2} />
                         </Link>
 

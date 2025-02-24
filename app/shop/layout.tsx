@@ -13,9 +13,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="min-h-dvh">
+        <div className="min-h-dvh bg-background">
             <MobileNavBar />
-            <div className="bg-background p-2 flex flex-col ">
+            <div className=" p-2 flex flex-col ">
                 <main className="flex-1">
                     {children}
                 </main>

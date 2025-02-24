@@ -1,6 +1,9 @@
 export type Shop = {
     id: number;
     name: string;
+    slug: string;
+    type: string;
+    imageUrl?: string;
     open: boolean;
     cuisine: string[];
     address: {

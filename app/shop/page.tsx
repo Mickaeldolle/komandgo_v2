@@ -7,14 +7,15 @@ import StarButton from "../components/ui/StarButton/StarButton";
 import Link from "next/link";
 import type { Shop } from "@/@types/shop";
 import shops from "@/db/shops";
+
+
 // Liste des shops
-
-
 // Composant Shop
 export default function Shop() {
 
     const [showSearchShopModal, setShowSearchShopModal] = useState(false);
     const [toggleFilter, setToggleFilter] = useState(true);
+
     const distanceValues = [
         { value: 5, label: '5 km' },
         { value: 15, label: '15 km' },
@@ -49,7 +50,7 @@ export default function Shop() {
 
     return (
         <div className="h-full">
-            < div className="bg-background rounded-xl bg-background" >
+            < div className="bg-background rounded-xl" >
                 {showSearchShopModal && (
                     <Modal
                         withCloseButton={false}
@@ -125,7 +126,7 @@ export default function Shop() {
                 {
                     shops.map((shop: Shop) => (
                         <div key={shop.id} className="flex items-center border-b border-primary/20">
-                            <Link href={`/shop/${shop.id}`} className="grow items-center">
+                            <Link href={`/shop/${shop.id}-${shop.slug}`} className="grow items-center">
                                 <div className="p-2 ">
                                     <h2 className="text-lg font-bold">{shop.name}</h2>
                                     <p className="text-sm text-gray-600">{shop.cuisine.join(', ')}</p>
