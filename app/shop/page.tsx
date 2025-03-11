@@ -14,7 +14,7 @@ import shops from "@/db/shops";
 export default function Shop() {
 
     const [showSearchShopModal, setShowSearchShopModal] = useState(false);
-    const [toggleFilter, setToggleFilter] = useState(true);
+    const [toggleFilter, setToggleFilter] = useState(false);
 
     const distanceValues = [
         { value: 5, label: '5 km' },
