@@ -3,7 +3,7 @@ import { IconLogin, IconSearch, IconQuestionMark, IconPower, IconUser } from "@t
 
 export default async function Home() {
 
-  const userIsLoged = true;
+  const userIsLoged = false;
 
   const buttonGroup = [
     { label: "Recherche", href: "/shop", icon: <IconSearch />, showWhenUserLoged: null, color: "" },
@@ -20,27 +20,27 @@ export default async function Home() {
   })
 
   return (
-    <div className="h-dvh bg-gray-100 flex flex-col justify-between font-roboto">
+    <div className="h-dvh bg-background flex flex-col justify-between font-roboto">
       {/* Logo / slogan / image */}
-      <div className="h-1/2 grow py-5 bg-hero-home bg-no-repeat bg-cover bg-center flex flex-col justify-center p-5">
+      <div className="h-1/2 py-5 bg-hero-home bg-no-repeat bg-cover bg-center flex flex-col justify-center p-5">
         <div className="backdrop-blur-sm text-center text-xl font-medium p-5 rounded-xl">
-          <h1 className="text-6xl font-backOpsOne">Kom&GO</h1>
+          <h1 className="text-6xl font-blackOpsOne">Kom&GO</h1>
           <h2 className="font-pacifico">The new way to order food !</h2>
         </div>
       </div>
       {/* Button group */}
-      <div className="grid grid-cols-2 gap-x-2 gap-y-3 border p-2 min-h-[300px]">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-3 p-2 grow">
         {filteredButtonGroup.map((button) => (
           <Link
-            className="hover:outline hover:outline-1 hover:outline-primary flex bg-white nowrap p-5 border shadow-inner rounded-xl  transition duration-500 uppercase"
+            className="active:scale-95 flex flex-col justify-between bg-foreground nowrap p-5 border shadow-inner rounded-xl transition ease uppercase hover:outline hover:outline-1 hover:outline-primary"
             key={button.label}
             href={button.href}
           >
-            <span className="pe-3 text-primary">{button.icon}</span>
-            <span className={`text-${button.color}-950`}>{button.label}</span>
+            <div className=" text-primary ml-auto">{button.icon}</div>
+            <div className={`text-${button.color}-950`}>{button.label}</div>
           </Link>
         ))}
       </div>
-    </div>
+    </div >
   );
 }

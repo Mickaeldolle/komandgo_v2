@@ -4,7 +4,7 @@ import MobileNavBar from "../components/MobileNavBar/MobileNavBar";
 
 export const metadata: Metadata = {
     title: 'KomandGO app new food ordering',
-    description: 'Page de recherche de lieu',
+    description: 'Page de profil',
 };
 
 export default function RootLayout({
@@ -13,13 +13,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="min-h-dvh bg-background">
+        <div className="bg-background p-2 flex flex-col h-dvh">
             <MobileNavBar />
-            <div className=" p-2 flex flex-col ">
-                <main className="flex-1">
-                    {children}
-                </main>
-            </div>
+            <main className="flex-1">
+                {children}
+            </main>
         </div>
 
     );

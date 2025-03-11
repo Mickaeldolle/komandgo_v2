@@ -3,6 +3,10 @@ import { Roboto, Inter, Pacifico, Black_Ops_One } from "next/font/google";
 import "./globals.css";
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps, createTheme } from '@mantine/core';
+import { CustomerStoreProvider } from '@/providers/customer-store-provider';
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
+
 
 const theme = createTheme({
   primaryColor: 'primary',
@@ -64,10 +68,14 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${inter.variable} ${pacifico.variable} ${backOpsOne.variable} antialiased `}
       >
-        <MantineProvider theme={theme}>
-          {children}
-        </MantineProvider>
+        <ErrorBoundary errorComponent={Error}>
+          <CustomerStoreProvider>
+            <MantineProvider theme={theme}>
+              {children}
+            </MantineProvider>
+          </CustomerStoreProvider>
+        </ErrorBoundary>
       </body>
-    </html>
+    </html >
   );
 }
