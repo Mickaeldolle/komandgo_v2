@@ -6,25 +6,26 @@ type Price = {
     processId: number;
 };
 
-type ProcessItem = {
+// type ProcessItem = {
+//     id: number;
+//     label: string;
+//     value: number;
+//     processId: number;
+//     additionalPrice: number;
+// };
+
+export type Step = {
     id: number;
     label: string;
-    value: number;
-    processId: number;
-    additionalPrice: number;
+    min_choice: number | null;
+    max_choice: number | null;
+    items: Item[];
 };
 
-type ProcessStep = {
+export type Process = {
     id: number;
     label: string;
-    allowMultiple: boolean;
-    items: ProcessItem[];
-};
-
-type Process = {
-    id: number;
-    label: string;
-    steps: ProcessStep[];
+    steps: Step[];
 };
 
 // Main Item type
@@ -33,7 +34,7 @@ export type Item = {
     name: string;
     slug: string;
     description: string;
-    image: string;
+    imageUrl: string;
     allergens: string[];
     prices: Price[];
     processes?: Process;

@@ -2,8 +2,9 @@
 
 import { Checkbox, CheckIcon, Radio, Button, ActionIcon } from "@mantine/core";
 import { IconMinus, IconPlus, IconShoppingCartPlus } from "@tabler/icons-react";
-import { Item } from "@/@types/item";
+import { Item, Process } from "@/@types/item";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Processes({
     item,
@@ -25,20 +26,22 @@ export default function Processes({
     }
 
     // En fonction du prix choisi (menu ou seul), faire un appel api pour mettre a jour le process
-    const process = {
+    // Voir pour le typage du prix
+
+
+    const process: Process = {
         id: 1,
         label: 'pizza',
         steps: [
             {
                 id: 1,
                 label: 'Taille',
-                required: true,
                 min_choice: 1,
                 max_choice: 1,
                 items: [
-                    { id: 1, label: 'Petit', value: 10, processId: 1, additionalPrice: 0, menuAdditionalPrice: 0 },
-                    { id: 2, label: 'Moyen', value: 15, processId: 2, additionalPrice: 150, menuAdditionalPrice: 150 },
-                    { id: 3, label: 'Grand', value: 20, processId: 3, additionalPrice: 200, menuAdditionalPrice: 200 }
+                    { id: 1, name: 'Petit', imageUrl: "/orangina.png", prices: [{ id: 1, label: 'Petit', value: 10, processId: 1 }], slug: 'petit', description: 'Petit', allergens: [] },
+                    { id: 2, name: 'Moyen', imageUrl: "/orangina.png", prices: [{ id: 2, label: 'Moyen', value: 15, processId: 2 }], slug: 'moyen', description: 'Moyen', allergens: [] },
+                    { id: 3, name: 'Grand', imageUrl: "/orangina.png", prices: [{ id: 3, label: 'Grand', value: 20, processId: 3 }], slug: 'grand', description: 'Grand', allergens: [] }
                 ]
             },
             {
@@ -47,10 +50,10 @@ export default function Processes({
                 min_choice: 0,
                 max_choice: null,
                 items: [
-                    { id: 1, label: 'Champignons', value: 10, processId: 1, additionalPrice: 100, menuAdditionalPrice: 100 },
-                    { id: 2, label: 'Olives', value: 15, processId: 2, additionalPrice: 100, menuAdditionalPrice: 100 },
-                    { id: 3, label: 'Jambon', value: 20, processId: 3, additionalPrice: 100, menuAdditionalPrice: 100 },
-                    { id: 4, label: 'Fromage', value: 25, processId: 4, additionalPrice: 100, menuAdditionalPrice: 100 }
+                    { id: 1, name: 'Champignons', imageUrl: "/orangina.png", prices: [{ id: 1, label: 'Champignons', value: 10, processId: 1 }], slug: 'champignons', description: 'Champignons', allergens: [] },
+                    { id: 2, name: 'Olives', imageUrl: "/orangina.png", prices: [{ id: 2, label: 'Olives', value: 15, processId: 2 }], slug: 'olives', description: 'Olives', allergens: [] },
+                    { id: 3, name: 'Jambon', imageUrl: "/orangina.png", prices: [{ id: 3, label: 'Jambon', value: 20, processId: 3 }], slug: 'jambon', description: 'Jambon', allergens: [] },
+                    { id: 4, name: 'Fromage', imageUrl: "/orangina.png", prices: [{ id: 4, label: 'Fromage', value: 25, processId: 4 }], slug: 'fromage', description: 'Fromage', allergens: [] }
                 ]
             },
             {
@@ -59,12 +62,12 @@ export default function Processes({
                 min_choice: 1,
                 max_choice: 1,
                 items: [
-                    { id: 1, label: 'Eau', value: 10, processId: 1, additionalPrice: 100, menuAdditionalPrice: 0 },
-                    { id: 2, label: 'Coca-Cola', value: 15, processId: 2, additionalPrice: 100, menuAdditionalPrice: 0 },
-                    { id: 3, label: 'Fanta', value: 20, processId: 3, additionalPrice: 100, menuAdditionalPrice: 0 },
-                    { id: 4, label: 'Orangina', value: 25, processId: 4, additionalPrice: 100, menuAdditionalPrice: 0 },
-                    { id: 5, label: 'Ice-Tea', value: 30, processId: 5, additionalPrice: 100, menuAdditionalPrice: 0 },
-                    { id: 6, label: 'Limonade', value: 35, processId: 6, additionalPrice: 100, menuAdditionalPrice: 0 }
+                    { id: 1, name: 'Eau', imageUrl: "/orangina.png", prices: [{ id: 1, label: 'Eau', value: 10, processId: 1 }], slug: 'eau', description: 'Eau', allergens: [] },
+                    { id: 2, name: 'Coca-Cola', imageUrl: "/orangina.png", prices: [{ id: 2, label: 'Coca-Cola', value: 15, processId: 2 }], slug: 'coca-cola', description: 'Coca-Cola', allergens: [] },
+                    { id: 3, name: 'Fanta', imageUrl: "/orangina.png", prices: [{ id: 3, label: 'Fanta', value: 20, processId: 3 }], slug: 'fanta', description: 'Fanta', allergens: [] },
+                    { id: 4, name: 'Orangina', imageUrl: "/orangina.png", prices: [{ id: 4, label: 'Orangina', value: 25, processId: 4 }], slug: 'orangina', description: 'Orangina', allergens: [] },
+                    { id: 5, name: 'Ice-Tea', imageUrl: "/orangina.png", prices: [{ id: 5, label: 'Ice-Tea', value: 30, processId: 5 }], slug: 'ice-tea', description: 'Ice-Tea', allergens: [] },
+                    { id: 6, name: 'Limonade', imageUrl: "/orangina.png", prices: [{ id: 6, label: 'Limonade', value: 35, processId: 6 }], slug: 'limonade', description: 'Limonade', allergens: [] }
                 ]
             }
         ]
@@ -91,25 +94,30 @@ export default function Processes({
             {process && process.steps.map(step => (
                 <div className="rounded-xl mb-4 p-5 space-y-2 shadow-inner border bg-white" key={step.id} >
                     <h3 className="text-2xl font-bold text-base">{step.label}</h3>
-                    {
-                        step.items.map(item => (
-                            <div className="flex gap-2 items-center" key={item.id}>
-                                {step.max_choice === null ? (
-                                    <Checkbox id={item.label} icon={CheckIcon} name="process" value={item.label} />
+                    <div className="grid grid-cols-3 gap-y-8 gap-x-2">
+                        {
+                            step.items.map(item => (
+                                <div className="" key={item.id}>
+                                    {step.max_choice === null ? (
+                                        <Checkbox id={item.name} icon={CheckIcon} className="" name="process" value={item.name} />
 
-                                ) : (
-                                    <Radio id={item.label} icon={CheckIcon} name="process" value={item.label} />
+                                    ) : (
 
-                                )}
-                                <label className="flex justify-between w-full" htmlFor={item.label} key={item.id}>
-                                    {`${item.label} `}
-                                    <small className="text-sm font-medium">
-                                        {returnPrice(item.menuAdditionalPrice)}
-                                    </small>
-                                </label>
-                            </div>
-                        ))
-                    }
+                                        <Radio id={item.name} icon={CheckIcon} className="" name="process" value={item.name} />
+
+                                    )}
+                                    <label className="flex flex-col items-center justify-center" htmlFor={item.name} key={item.id}>
+                                        <Image width={60} height={60} src={item.imageUrl} alt={item.name} />
+
+                                        {`${item.name} `}
+                                        <small className="text-sm font-medium">
+                                            {returnPrice(item.prices[0].value)}
+                                        </small>
+                                    </label>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
             ))
             }

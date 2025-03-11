@@ -4,7 +4,7 @@ import { ActionIcon, Indicator, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconArrowLeft, IconBell, IconSearch, IconShoppingCart, IconUser } from "@tabler/icons-react";
 import classes from './mobile-nav-bar.module.css';
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function MobileNavBar() {
@@ -13,12 +13,14 @@ export default function MobileNavBar() {
     const [showCartButton, setShowCartButton] = useState(false);
 
     useEffect(() => {
-        setShowCartButton(pathName.includes('menu'));
-
+        // Le boutton du panier s'affiche sur les pages d'un etablissement et pages des produits
+        setShowCartButton(pathName.includes('shop/'));
         return () => {
             setShowCartButton(false);
         };
     }, [pathName]);
+
+    const router = useRouter();
 
     return (
         <>
@@ -71,6 +73,7 @@ export default function MobileNavBar() {
                             p={4}
                             size={40}
                             color="transparent"
+                            onClick={() => router.push('/login')}
                         >
                             <IconUser
                                 className="text-contrast"

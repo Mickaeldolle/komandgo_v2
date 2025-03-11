@@ -19,7 +19,7 @@ export default async function ItemBoard(
         id: 1, name: 'Montagnarde',
         slug: 'montagnarde',
         description: 'Delicieuse pizza montagnarde avec des ingrédients de qualité supérieure, parfait pour les amateurs de pizza traditionnelle.',
-        image: "/img-1.jpg",
+        imageUrl: "/img-1.jpg",
         allergens: ["lait", "moule", "gluten"],
         prices: [
             { id: 1, label: 'Seul', value: 10, processId: 1 },
@@ -32,7 +32,7 @@ export default async function ItemBoard(
             <h1 className="text-2xl font-bold text-center text-primary font-blackOpsOne">{item.name}</h1>
             <div className="w-full max-h-[150px] overflow-hidden rounded-xl" >
                 <Image
-                    src={item.image}
+                    src={item.imageUrl}
                     alt={item.name}
                     width={1000}
                     height={700}
