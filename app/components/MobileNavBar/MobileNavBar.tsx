@@ -6,11 +6,13 @@ import { IconArrowLeft, IconBell, IconSearch, IconShoppingCart, IconUser } from 
 import classes from './mobile-nav-bar.module.css';
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCustomerStore } from "@/providers/customer-store-provider";
 
 export default function MobileNavBar() {
     const [visible, { toggle }] = useDisclosure();
     const pathName = usePathname();
     const [showCartButton, setShowCartButton] = useState(false);
+    const selectedShop = useCustomerStore((state) => state.selectedShop);
 
     useEffect(() => {
         // Le boutton du panier s'affiche sur les pages d'un etablissement et pages des produits
@@ -87,6 +89,7 @@ export default function MobileNavBar() {
                                 p={4}
                                 size={40}
                                 color="transparent"
+                                onClick={() => router.push(`/shop/${selectedShop?.slug}/cart`)}
                             >
                                 <IconShoppingCart
                                     className="text-contrast"
