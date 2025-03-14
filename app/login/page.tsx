@@ -1,11 +1,7 @@
 import { TextInput, Button, Divider, PasswordInput } from "@mantine/core";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default function Login() {
-    const isConnected = false;
-    if (isConnected)
-        redirect('/profile')
 
 
     return (

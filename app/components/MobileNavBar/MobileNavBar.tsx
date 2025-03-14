@@ -1,8 +1,8 @@
 'use client'
 
-import { ActionIcon, Indicator, TextInput } from "@mantine/core";
+import { ActionIcon, Indicator } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconArrowLeft, IconBell, IconSearch, IconShoppingCart, IconUser } from "@tabler/icons-react";
+import { IconArrowLeft, IconBell, IconHome, IconShoppingCart, IconUser } from "@tabler/icons-react";
 import classes from './mobile-nav-bar.module.css';
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -28,27 +28,40 @@ export default function MobileNavBar() {
         <>
             <div className="fixed top-0 left-0 right-0 z-50">
                 <div className="bg-white flex items-center justify-between shadow-md p-2 rounded-b-2xl h-16">
-                    <ActionIcon
-                        onClick={() => history.back()}
-                        p={4}
-                        size={40}
-                        color="transparent"
-                    >
-                        <IconArrowLeft
-                            className="text-contrast"
-                            size={40}
-                            stroke={1.5}
-                        />
-                    </ActionIcon>
+                    <div className="flex items-center gap-5">
 
-                    <TextInput
+                        <ActionIcon
+                            onClick={() => history.back()}
+                            p={4}
+                            size={40}
+                            color="transparent"
+                        >
+                            <IconArrowLeft
+                                className="text-contrast"
+                                size={40}
+                                stroke={1.5}
+                            />
+                        </ActionIcon>
+                        <ActionIcon
+                            onClick={() => router.push('/')}
+                            p={4}
+                            size={40}
+                            color="transparent">
+                            <IconHome
+                                className="text-contrast"
+                                size={40}
+                                stroke={1.5}
+                            />
+                        </ActionIcon>
+                    </div>
+
+                    {/* <TextInput
                         size="md"
                         radius="xl"
                         placeholder="Rechercher"
                         rightSection={<IconSearch size={20} stroke={1} />}
                         className="w-full max-w-[200px] mx-4"
-                    />
-
+                    /> */}
                     <div className="flex items-center gap-1">
                         <ActionIcon
                             p={4}
@@ -75,7 +88,7 @@ export default function MobileNavBar() {
                             p={4}
                             size={40}
                             color="transparent"
-                            onClick={() => router.push('/login')}
+                            onClick={() => router.push('/profile')}
                         >
                             <IconUser
                                 className="text-contrast"

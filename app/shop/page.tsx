@@ -49,7 +49,7 @@ export default function Shop() {
     }, [])
 
     return (
-        <div className="h-full">
+        <div className="">
             < div className="bg-background rounded-xl" >
                 {showSearchShopModal && (
                     <Modal
