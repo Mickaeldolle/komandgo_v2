@@ -1,0 +1,6 @@
+import { LoadingState } from "@/components/ui/feedback";
+
+export default function Loading() {
+  return <LoadingState label="Mise en place…" />;
+}
+

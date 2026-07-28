@@ -1,0 +1,10 @@
+node_modules
+.next
+coverage
+playwright-report
+test-results
+server*.log
+*.tsbuildinfo
+e2e
+src/**/*.test.ts
+src/**/*.test.tsx
