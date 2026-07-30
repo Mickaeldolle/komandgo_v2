@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from apps.restaurants.admin_mixins import RestaurantOwnedAdminMixin
+
 from .models import Order, OrderItem, OrderItemOption
 
 
@@ -19,7 +21,8 @@ class OrderItemInline(admin.TabularInline):
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(RestaurantOwnedAdminMixin, admin.ModelAdmin):
+    restaurant_owner_lookup = "restaurant__owner"
     list_display = (
         "short_number",
         "restaurant",
@@ -29,8 +32,15 @@ class OrderAdmin(admin.ModelAdmin):
         "total",
         "created_at",
     )
-    list_filter = ("status", "fulfillment", "restaurant", "created_at")
+    list_filter = (
+        ("restaurant", admin.RelatedOnlyFieldListFilter),
+        "status",
+        "fulfillment",
+        "created_at",
+    )
     search_fields = ("public_id", "customer_email", "customer_name", "restaurant__name")
+    ordering = ("restaurant__name", "-created_at")
+    list_select_related = ("restaurant", "user")
     readonly_fields = (
         "public_id",
         "idempotency_key",

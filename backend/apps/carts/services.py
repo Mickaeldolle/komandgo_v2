@@ -174,6 +174,11 @@ def remove_item(request, item_id: int) -> Cart | None:
     deleted, _ = cart.items.filter(pk=item_id).delete()
     if not deleted:
         raise ValidationError({"item": "Cette ligne n’existe pas."})
+    if not CartItem.objects.filter(cart_id=cart.id).exists():
+        cart.status = Cart.Status.ABANDONED
+        cart.save(update_fields=("status", "updated_at"))
+        request.session.pop("cart_id", None)
+        return None
     return find_current_cart(request)
 
 

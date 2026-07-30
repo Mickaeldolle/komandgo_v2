@@ -28,7 +28,11 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family:
-    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 16px;
   line-height: 1.55;
   text-rendering: optimizeLegibility;
@@ -2079,16 +2083,56 @@ input {
     display: none;
   }
 
+  .restaurant-hero {
+    min-height: auto;
+  }
+
   .restaurant-hero__photo {
-    min-height: 270px;
+    display: none;
+    min-height: 0;
   }
 
   .restaurant-hero__summary {
-    padding: 40px 22px 50px;
+    justify-content: flex-start;
+    padding: 18px 20px 22px;
+  }
+
+  .back-link {
+    margin-bottom: 12px;
+  }
+
+  .restaurant-hero__topline {
+    margin-bottom: 8px;
+  }
+
+  .restaurant-hero__cuisine,
+  .restaurant-hero__description,
+  .service-grid .restaurant-hero__address {
+    display: none;
+  }
+
+  .restaurant-hero h1 {
+    margin-bottom: 12px;
+    font-size: clamp(1.9rem, 9vw, 2.4rem);
+    line-height: 1;
   }
 
   .service-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+
+  .service-grid span {
+    font-size: 0.78rem;
+  }
+
+  .catalog-shell {
+    padding-top: 24px;
+  }
+
+  .category-nav {
+    margin-bottom: 20px;
   }
 
   .catalog-section__heading {
@@ -2199,4 +2243,3 @@ input {
     transition-duration: 1ms !important;
   }
 }
-

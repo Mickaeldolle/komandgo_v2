@@ -1,3 +1,32 @@
+[project]
+name = "komandgo-backend"
+version = "1.0.0"
+description = "KomandGo Django API"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "Django==5.2.16",
+  "argon2-cffi==25.1.0",
+  "django-cors-headers==4.7.0",
+  "django-environ==0.12.0",
+  "django-filter==25.2",
+  "djangorestframework==3.16.1",
+  "drf-spectacular==0.29.0",
+  "gunicorn==23.0.0",
+  "pillow==12.3.0",
+  "psycopg[binary]==3.2.9",
+  "python-json-logger==3.3.0",
+]
+
+[dependency-groups]
+dev = [
+  "factory-boy==3.3.3",
+  "pip-audit>=2.10.1",
+  "pytest==9.0.3",
+  "pytest-cov==6.2.1",
+  "pytest-django==4.11.1",
+  "ruff==0.12.7",
+]
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
 python_files = ["test_*.py"]
@@ -6,15 +35,3 @@ addopts = "--strict-markers --cov=apps --cov-report=term-missing"
 [tool.coverage.run]
 branch = true
 omit = ["*/migrations/*", "*/admin.py", "*/apps.py"]
-
-[tool.ruff]
-target-version = "py311"
-line-length = 100
-exclude = ["*/migrations/*"]
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP", "DJ", "RUF", "SIM", "C4"]
-ignore = ["DJ001"]
-
-[tool.ruff.format]
-quote-style = "double"

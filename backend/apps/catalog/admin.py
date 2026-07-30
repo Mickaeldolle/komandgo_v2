@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from apps.restaurants.admin_mixins import RestaurantOwnedAdminMixin
+
 from .models import Category, OptionGroup, Product, ProductOption
 
 
@@ -10,28 +12,44 @@ class ProductOptionInline(admin.TabularInline):
 
 
 @admin.register(OptionGroup)
-class OptionGroupAdmin(admin.ModelAdmin):
+class OptionGroupAdmin(RestaurantOwnedAdminMixin, admin.ModelAdmin):
+    restaurant_owner_lookup = "product__category__restaurant__owner"
+    owned_foreign_keys = {"product": "category__restaurant__owner"}
     list_display = ("name", "product", "minimum", "maximum", "position")
-    list_filter = ("product__category__restaurant",)
+    list_filter = (("product__category__restaurant", admin.RelatedOnlyFieldListFilter),)
     search_fields = ("name", "product__name", "product__category__restaurant__name")
     autocomplete_fields = ("product",)
+    list_select_related = ("product", "product__category", "product__category__restaurant")
     inlines = (ProductOptionInline,)
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(RestaurantOwnedAdminMixin, admin.ModelAdmin):
+    restaurant_owner_lookup = "restaurant__owner"
+    owned_foreign_keys = {"restaurant": "owner"}
     list_display = ("name", "restaurant", "position", "is_active")
-    list_filter = ("is_active", "restaurant")
+    list_filter = (
+        "is_active",
+        ("restaurant", admin.RelatedOnlyFieldListFilter),
+    )
     search_fields = ("name", "restaurant__name")
     autocomplete_fields = ("restaurant",)
     prepopulated_fields = {"slug": ("name",)}
     ordering = ("restaurant", "position")
+    list_select_related = ("restaurant",)
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(RestaurantOwnedAdminMixin, admin.ModelAdmin):
+    restaurant_owner_lookup = "category__restaurant__owner"
+    owned_foreign_keys = {"category": "restaurant__owner"}
     list_display = ("name", "category", "price", "is_available", "is_active", "position")
-    list_filter = ("is_active", "is_available", "category__restaurant", "category")
+    list_filter = (
+        "is_active",
+        "is_available",
+        ("category__restaurant", admin.RelatedOnlyFieldListFilter),
+        ("category", admin.RelatedOnlyFieldListFilter),
+    )
     search_fields = ("name", "description", "category__name", "category__restaurant__name")
     autocomplete_fields = ("category",)
     prepopulated_fields = {"slug": ("name",)}

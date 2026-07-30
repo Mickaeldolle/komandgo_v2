@@ -16,14 +16,16 @@ import { ApiError } from "@/lib/api-client";
 
 const loginSchema = z.object({
   email: z.string().email("Saisissez une adresse e-mail valide."),
-  password: z.string().min(1, "Saisissez votre mot de passe.")
+  password: z.string().min(1, "Saisissez votre mot de passe."),
 });
 
 const registerSchema = loginSchema.extend({
-  password: z.string().min(10, "Le mot de passe doit contenir au moins 10 caractères."),
+  password: z
+    .string()
+    .min(10, "Le mot de passe doit contenir au moins 10 caractères."),
   first_name: z.string().min(1, "Saisissez votre prénom.").max(150),
   last_name: z.string().min(1, "Saisissez votre nom.").max(150),
-  phone: z.string().max(20)
+  phone: z.string().max(20),
 });
 
 type LoginValues = z.infer<typeof loginSchema>;
@@ -50,8 +52,8 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       password: "",
       first_name: "",
       last_name: "",
-      phone: ""
-    }
+      phone: "",
+    },
   });
   const pending = login.isPending || registerUser.isPending;
 
@@ -63,7 +65,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       } else {
         const credentials: LoginValues = {
           email: values.email,
-          password: values.password
+          password: values.password,
         };
         await login.mutateAsync(credentials);
         toast.success("Connexion réussie.");
@@ -75,14 +77,14 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         message:
           error instanceof ApiError
             ? error.message
-            : "La connexion au service a échoué. Réessayez."
+            : "La connexion au service a échoué. Réessayez.",
       });
     }
   }
 
   return (
     <section className="auth-layout">
-      <div className="auth-story">
+      {/* <div className="auth-story">
         <p className="kicker">Votre table, partout</p>
         <h1>{isRegister ? "Un compte pour garder le fil." : "Ravi de vous revoir."}</h1>
         <p>
@@ -94,8 +96,12 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <li>Aucun jeton stocké dans le navigateur</li>
           <li>Prix toujours vérifiés côté serveur</li>
         </ul>
-      </div>
-      <form className="auth-form" method="post" onSubmit={form.handleSubmit(submit)}>
+      </div> */}
+      <form
+        className="auth-form"
+        method="post"
+        onSubmit={form.handleSubmit(submit)}
+      >
         <div>
           <h2>{isRegister ? "Créer mon compte" : "Se connecter"}</h2>
           <p>
@@ -117,7 +123,9 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
                 autoComplete="given-name"
                 aria-invalid={Boolean(form.formState.errors.first_name)}
                 aria-describedby={
-                  form.formState.errors.first_name ? "first_name-error" : undefined
+                  form.formState.errors.first_name
+                    ? "first_name-error"
+                    : undefined
                 }
                 {...form.register("first_name")}
               />
@@ -132,20 +140,28 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
                 autoComplete="family-name"
                 aria-invalid={Boolean(form.formState.errors.last_name)}
                 aria-describedby={
-                  form.formState.errors.last_name ? "last_name-error" : undefined
+                  form.formState.errors.last_name
+                    ? "last_name-error"
+                    : undefined
                 }
                 {...form.register("last_name")}
               />
             </Field>
           </div>
         ) : null}
-        <Field id="email" label="Adresse e-mail" error={form.formState.errors.email?.message}>
+        <Field
+          id="email"
+          label="Adresse e-mail"
+          error={form.formState.errors.email?.message}
+        >
           <input
             id="email"
             type="email"
             autoComplete="email"
             aria-invalid={Boolean(form.formState.errors.email)}
-            aria-describedby={form.formState.errors.email ? "email-error" : undefined}
+            aria-describedby={
+              form.formState.errors.email ? "email-error" : undefined
+            }
             {...form.register("email")}
           />
         </Field>
@@ -175,7 +191,9 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
               id="phone"
               autoComplete="tel"
               aria-invalid={Boolean(form.formState.errors.phone)}
-              aria-describedby={form.formState.errors.phone ? "phone-error" : undefined}
+              aria-describedby={
+                form.formState.errors.phone ? "phone-error" : undefined
+              }
               {...form.register("phone")}
             />
           </Field>
@@ -185,8 +203,16 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             {form.formState.errors.root.message}
           </p>
         ) : null}
-        <Button className="button--wide" type="submit" disabled={pending || !isHydrated}>
-          {pending ? "Vérification…" : isRegister ? "Créer mon compte" : "Se connecter"}
+        <Button
+          className="button--wide"
+          type="submit"
+          disabled={pending || !isHydrated}
+        >
+          {pending
+            ? "Vérification…"
+            : isRegister
+              ? "Créer mon compte"
+              : "Se connecter"}
           <ArrowRight aria-hidden="true" />
         </Button>
       </form>
@@ -198,7 +224,7 @@ function Field({
   id,
   label,
   error,
-  children
+  children,
 }: {
   id: string;
   label: string;
@@ -217,4 +243,3 @@ function Field({
     </div>
   );
 }
-

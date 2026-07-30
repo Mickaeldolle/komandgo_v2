@@ -30,7 +30,11 @@ export function RestaurantView({ slug }: { slug: string }) {
       <section className="restaurant-hero">
         <div className="restaurant-hero__photo">
           <Image
-            src={data.banner_url || data.image_url || "/demo/catalog/category-36-burgers.png"}
+            src={
+              data.banner_url ||
+              data.image_url ||
+              "/demo/catalog/category-36-burgers.png"
+            }
             alt=""
             fill
             priority
@@ -42,22 +46,23 @@ export function RestaurantView({ slug }: { slug: string }) {
             Tous les restaurants
           </Link>
           <div className="restaurant-hero__topline">
-            <span className={`status ${data.is_open ? "status--open" : "status--closed"}`}>
+            <span
+              className={`status ${data.is_open ? "status--open" : "status--closed"}`}
+            >
               {data.is_open ? "Ouvert" : "Fermé"}
             </span>
-            <span>{data.cuisine}</span>
+            <span className="restaurant-hero__cuisine">{data.cuisine}</span>
           </div>
           <h1>{data.name}</h1>
-          <p>{data.description}</p>
+          <p className="restaurant-hero__description">{data.description}</p>
           <div className="service-grid">
-            <span>
+            <span className="restaurant-hero__address">
               <MapPin aria-hidden="true" />
               {data.address}, {data.city}
             </span>
             {data.pickup_enabled ? (
               <span>
-                <ShoppingBag aria-hidden="true" />
-                À emporter
+                <ShoppingBag aria-hidden="true" />À emporter
               </span>
             ) : null}
             {data.delivery_enabled ? (
@@ -86,7 +91,11 @@ export function RestaurantView({ slug }: { slug: string }) {
         </nav>
         <div className="catalog">
           {data.categories.map((category) => (
-            <section className="catalog-section" id={category.slug} key={category.id}>
+            <section
+              className="catalog-section"
+              id={category.slug}
+              key={category.id}
+            >
               <div className="catalog-section__heading">
                 <div>
                   <h2>{category.name}</h2>
@@ -110,4 +119,3 @@ export function RestaurantView({ slug }: { slug: string }) {
     </>
   );
 }
-

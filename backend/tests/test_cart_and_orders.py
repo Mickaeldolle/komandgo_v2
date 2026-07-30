@@ -180,3 +180,28 @@ def test_orders_are_isolated_per_user():
 
     assert response.status_code == 200
     assert response.data == []
+
+
+@pytest.mark.django_db
+def test_cart_can_switch_restaurant_after_removing_the_last_item():
+    first = ProductFactory()
+    second_restaurant = RestaurantFactory()
+    second = ProductFactory(category=CategoryFactory(restaurant=second_restaurant))
+    client = APIClient()
+
+    assert add_product(client, first.id).status_code == 201
+    cart = client.get("/api/v1/cart/")
+    item_id = cart.data["items"][0]["id"]
+
+    removed = client.delete(f"/api/v1/cart/items/{item_id}/")
+
+    assert removed.status_code == 200
+    assert removed.data["id"] is None
+    assert removed.data["restaurant"] is None
+    assert removed.data["items"] == []
+
+    added = add_product(client, second.id)
+
+    assert added.status_code == 201
+    assert added.data["restaurant"]["id"] == str(second_restaurant.id)
+    assert [item["product"] for item in added.data["items"]] == [second.id]

@@ -59,12 +59,12 @@ production.
 Backend PowerShell :
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
+cd backend
+uv sync --dev
 $env:DEMO_ADMIN_PASSWORD="ChangeMe-OnlyForLocal-2026!"
-.\.venv\Scripts\python.exe backend\manage.py migrate
-.\.venv\Scripts\python.exe backend\manage.py seed_demo
-.\.venv\Scripts\python.exe backend\manage.py runserver 127.0.0.1:8000
+uv run python manage.py migrate
+uv run python manage.py seed_demo
+uv run python manage.py runserver 127.0.0.1:8000
 ```
 
 Frontend, dans un second terminal :
@@ -77,6 +77,12 @@ npm run dev
 
 L’application locale est alors sur <http://127.0.0.1:3000>. Sans `DATABASE_URL`,
 Django utilise `backend/db.sqlite3`.
+
+Sans Docker, le frontend sur le port 3000 appelle directement Django sur le port
+8000 : le navigateur applique donc CORS. Les origines locales sont explicitement
+autorisées, ainsi que l’en-tête `Idempotency-Key` requis par le checkout. Avec
+Docker, Nginx expose le frontend et `/api/v1` sur l’origine unique du port 8080 ;
+aucun échange cross-origin n’a lieu dans le navigateur.
 
 ## Variables d’environnement
 
@@ -95,10 +101,10 @@ Copiez `.env.example`. Les variables principales sont :
 ```bash
 # backend
 cd backend
-pytest --cov=apps --cov-report=term-missing
-ruff check .
-python manage.py check --deploy
-python manage.py spectacular --file schema.yml --validate
+uv run pytest --cov=apps --cov-report=term-missing
+uv run ruff check .
+uv run python manage.py check --deploy
+uv run python manage.py spectacular --file schema.yml --validate
 
 # frontend
 cd frontend
@@ -123,7 +129,13 @@ endpoints de connexion. Aucun jeton n’est stocké dans `localStorage`.
 Le compte administrateur de démonstration est
 `admin@komandgo.local / ChangeMe-OnlyForLocal-2026!`. Le compte client est
 `demo@komandgo.local / Demo-Customer-2026!`. Ce sont des secrets locaux jetables.
-En production, créez un compte avec `python manage.py createsuperuser`.
+En production, créez un compte avec `uv run python manage.py createsuperuser`.
+
+Un restaurateur non superutilisateur doit être marqué `is_staff`, appartenir au
+groupe `Restaurateurs` créé par les migrations et être associé à ses établissements
+via le champ `Restaurant.owner`. `is_staff` seul permet la connexion à l’Admin mais
+n’accorde aucune donnée métier. Les listes, recherches, filtres, relations et URLs
+directes restent bornés aux établissements possédés.
 
 ## Production
 

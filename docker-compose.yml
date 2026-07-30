@@ -30,7 +30,7 @@ services:
     command:
       - sh
       - -c
-      - python manage.py migrate --noinput && python manage.py seed_demo && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 30 --access-logfile - --error-logfile -
+      - uv run --no-dev python manage.py migrate --noinput && uv run --no-dev python manage.py seed_demo && uv run --no-dev gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 30 --access-logfile - --error-logfile -
     depends_on:
       db:
         condition: service_healthy
@@ -38,7 +38,7 @@ services:
       - static_data:/app/staticfiles
       - media_data:/app/media
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=3)"]
+      test: ["CMD", "uv", "run", "--no-dev", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=3)"]
       interval: 10s
       timeout: 5s
       retries: 12

@@ -1,23 +1,19 @@
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from urllib.parse import urlparse
 
+import environ
+from corsheaders.defaults import default_headers
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+env.read_env(BASE_DIR.parent / ".env")
 
-def env_bool(name: str, default: bool = False) -> bool:
-    return os.getenv(name, str(default)).lower() in {"1", "true", "yes", "on"}
-
-
-def env_list(name: str, default: str = "") -> list[str]:
-    return [value.strip() for value in os.getenv(name, default).split(",") if value.strip()]
-
-
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-development-key-change-before-production")
-DEBUG = env_bool("DJANGO_DEBUG", True)
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,testserver,192.168.1.177")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY", default="")
+DEBUG = env.bool("DJANGO_DEBUG", True)
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "testserver" , "192.168.1.177"])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -66,7 +62,7 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = "config.wsgi.application"
 
-database_url = os.getenv("DATABASE_URL")
+database_url = env.str("DATABASE_URL", default="")
 if database_url:
     parsed = urlparse(database_url)
     DATABASES = {
@@ -112,12 +108,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.User"
 
-CORS_ALLOWED_ORIGINS = env_list(
-    "DJANGO_CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000"
+CORS_ALLOWED_ORIGINS = env.list(
+    "DJANGO_CORS_ALLOWED_ORIGINS", default=["http://localhost:3000", "http://127.0.0.1:3000"]
 )
+CORS_ALLOW_HEADERS = (*default_headers, "idempotency-key")
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = env_list(
-    "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000"
+CSRF_TRUSTED_ORIGINS = env.list(
+    "DJANGO_CSRF_TRUSTED_ORIGINS", default=["http://localhost:3000", "http://127.0.0.1:3000"]
 )
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
@@ -125,7 +122,7 @@ SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SECURE = not DEBUG
-SECURE_SSL_REDIRECT = env_bool("DJANGO_SECURE_SSL_REDIRECT", not DEBUG)
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=not DEBUG)
 SECURE_HSTS_SECONDS = 31_536_000 if not DEBUG else 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 SECURE_HSTS_PRELOAD = not DEBUG

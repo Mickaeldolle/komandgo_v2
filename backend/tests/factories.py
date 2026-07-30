@@ -4,6 +4,7 @@ import factory
 from django.contrib.auth import get_user_model
 
 from apps.catalog.models import Category, OptionGroup, Product, ProductOption
+from apps.orders.models import Order
 from apps.restaurants.models import Restaurant
 
 User = get_user_model()
@@ -81,3 +82,19 @@ class ProductOptionFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: f"Option {n}")
     price_delta = Decimal("1.50")
     is_available = True
+
+
+class OrderFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Order
+
+    user = factory.SubFactory(UserFactory)
+    restaurant = factory.SubFactory(RestaurantFactory)
+    idempotency_key = factory.Sequence(lambda n: f"order-{n}")
+    fulfillment = Order.Fulfillment.PICKUP
+    subtotal = Decimal("12.00")
+    delivery_fee = Decimal("0.00")
+    total = Decimal("12.00")
+    customer_name = "Alex Martin"
+    customer_email = factory.LazyAttribute(lambda obj: obj.user.email)
+    customer_phone = "0600000000"
