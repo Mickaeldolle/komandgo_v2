@@ -1,0 +1,4 @@
+{
+  "buildCommand": "uv run python scripts/vercel_start.py"
+}
+
