@@ -1,0 +1,144 @@
+.search-field {
+  display: flex;
+  width: min(410px, 100%);
+  min-height: 54px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 17px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 5px 18px rgba(23, 35, 29, 0.05);
+}
+
+.search-field:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.search-field svg {
+  width: 20px;
+  color: var(--green);
+}
+
+.search-field input {
+  width: 100%;
+  height: 50px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.restaurant-list {
+  display: grid;
+  gap: 22px;
+}
+
+.restaurant-card {
+  display: grid;
+  min-height: 230px;
+  grid-template-columns: 250px 1fr;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(23, 35, 29, 0.14);
+}
+
+.restaurant-card__image {
+  position: relative;
+  height: 100%;
+  min-height: 230px;
+  background: var(--green-soft);
+}
+
+.restaurant-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 34px;
+}
+
+.restaurant-card__topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 850;
+}
+
+.status::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.status--open {
+  background: var(--green-soft);
+  color: #0d5a36;
+}
+
+.status--closed {
+  background: #fbe0dc;
+  color: var(--danger);
+}
+
+.status--order {
+  background: var(--amber-soft);
+  color: #704100;
+}
+
+.restaurant-card h2 {
+  margin-bottom: 10px;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.restaurant-card h2 a {
+  text-decoration: none;
+}
+
+.restaurant-card p {
+  margin-bottom: 22px;
+  color: var(--muted);
+}
+
+.restaurant-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.restaurant-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.restaurant-card__meta svg {
+  width: 16px;
+}
+

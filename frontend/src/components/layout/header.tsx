@@ -21,6 +21,7 @@ export function Header() {
       </Link>
       <nav className="main-nav" aria-label="Navigation principale">
         <Link href="/restaurants">Restaurants</Link>
+        {me.data?.is_restaurateur ? <Link href="/restaurateur">Espace pro</Link> : null}
         <Link className="nav-icon" href="/profile" aria-label="Mon profil">
           <UserRound aria-hidden="true" />
           <span className="nav-icon__label">
@@ -36,4 +37,6 @@ export function Header() {
     </header>
   );
 }
+
+
 
