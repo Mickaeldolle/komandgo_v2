@@ -64,17 +64,16 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = "config.wsgi.application"
 
-database_url = env.str("DATABASE_URL", default="")
-if database_url:
-    parsed = urlparse(database_url)
+use_postgres = env.bool("USE_POSTGRES", default=False)
+if use_postgres:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": parsed.path.lstrip("/"),
-            "USER": parsed.username,
-            "PASSWORD": parsed.password,
-            "HOST": parsed.hostname,
-            "PORT": parsed.port or 5432,
+            "NAME": env.str("POSTGRES_DB", default=""),
+            "USER": env.str("POSTGRES_USER", default=""),
+            "PASSWORD": env.str("POSTGRES_PASSWORD", default=""),
+            "HOST": env.str("POSTGRES_HOST", default="localhost"),
+            "PORT": env.int("POSTGRES_PORT", default="5432"),
             "CONN_MAX_AGE": 60,
             "CONN_HEALTH_CHECKS": True,
         }
