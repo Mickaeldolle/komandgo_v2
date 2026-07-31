@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -eu
+
+repo_root=$(git rev-parse --show-toplevel)
+backend_dir="$repo_root/backend"
+
+staged_python_files=$(git -C "$repo_root" diff --cached --name-only --diff-filter=ACMR -- '*.py')
+
+if [ -z "$staged_python_files" ]; then
+    exit 0
+fi
+
+if [ -x "$backend_dir/.venv/Scripts/ruff.exe" ]; then
+    ruff="$backend_dir/.venv/Scripts/ruff.exe"
+elif [ -x "$backend_dir/.venv/bin/ruff" ]; then
+    ruff="$backend_dir/.venv/bin/ruff"
+elif command -v ruff >/dev/null 2>&1; then
+    ruff=ruff
+else
+    echo "Erreur : Ruff est introuvable." >&2
+    echo "Installez les dépendances de développement avec : uv sync --dev" >&2
+    exit 1
+fi
+
+relative_backend_files=$(printf '%s\n' "$staged_python_files" | sed 's#^backend/##' | grep -v '^$' || true)
+
+if [ -z "$relative_backend_files" ]; then
+    exit 0
+fi
+
+echo "Vérification Ruff des fichiers Python indexés..."
+
+if ! (
+    cd "$backend_dir"
+    # shellcheck disable=SC2086
+    "$ruff" check $relative_backend_files
+); then
+    echo "Commit bloqué : Ruff a détecté des erreurs de lint." >&2
+    exit 1
+fi
+
+if ! (
+    cd "$backend_dir"
+    # shellcheck disable=SC2086
+    "$ruff" format --check $relative_backend_files
+); then
+    echo "Commit bloqué : certains fichiers ne respectent pas le formatage Ruff." >&2
+    echo "Corrigez-les avec : backend/.venv/Scripts/ruff.exe format backend" >&2
+    exit 1
+fi
+
+echo "Ruff OK."
