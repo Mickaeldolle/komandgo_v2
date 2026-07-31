@@ -1,13 +1,24 @@
-from django.contrib.auth import authenticate, password_validation
 from rest_framework import serializers
 
 from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_restaurateur = serializers.SerializerMethodField()
+
+    def get_is_restaurateur(self, user: User) -> bool:
+        return user.groups.filter(name="Restaurateurs").exists()
+
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "phone")
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "is_restaurateur",
+        )
         read_only_fields = ("id", "email")
 
 
@@ -20,6 +31,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
     def validate_password(self, value: str) -> str:
+        from django.contrib.auth import password_validation
+
         password_validation.validate_password(value)
         return value
 
@@ -33,6 +46,8 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(trim_whitespace=False, write_only=True)
 
     def validate(self, attrs):
+        from django.contrib.auth import authenticate
+
         user = authenticate(
             request=self.context.get("request"),
             email=attrs["email"].lower(),
