@@ -3,6 +3,14 @@ import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 
+import "./home.css";
+import "./auth/auth.css";
+import "./cart/cart.css";
+import "./profile/profile.css";
+import "./restaurants/restaurants.css";
+import "./restaurants/restaurant.css";
+import "./restaurants/product.css";
+import "./restaurateur/restaurateur.css";
 import "./globals.css";
 import { Providers } from "./providers";
 
