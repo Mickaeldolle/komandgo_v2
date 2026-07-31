@@ -78,7 +78,8 @@ export const userSchema = z.object({
   email: z.string().email(),
   first_name: z.string(),
   last_name: z.string(),
-  phone: z.string()
+  phone: z.string(),
+  is_restaurateur: z.boolean().default(false)
 });
 
 export const cartItemOptionSchema = z.object({
